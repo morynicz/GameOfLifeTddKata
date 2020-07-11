@@ -1,55 +1,67 @@
 #include "implementation.hpp"
 #include <algorithm>
 
-bool hasNeighborOnTheLeft(const std::vector<CellState> &row, const int idx)
+Board::Board(const std::vector<std::vector<CellState>> &board) : board(board) {}
+Board::Board() : Board(World{}) {}
+
+bool Board::hasNeighborOnTheLeft(const int row, const int column) const
 {
-    return (idx - 1) >= 0 && CellState::Alive == row[idx - 1];
+    return (column - 1) >= 0 && CellState::Alive == board[row][column - 1];
 }
 
-bool hasNeighborOnTheRight(const std::vector<CellState> &row, const int idx)
+bool Board::hasNeighborOnTheRight(const int row, const int column) const
 {
-    return (idx + 1) < row.size() && CellState::Alive == row[idx + 1];
+    return (column + 1) < board[row].size() &&
+           CellState::Alive == board[row][column + 1];
 }
 
-bool hasNeighborAbove(const Board &board, const int row, const int column)
+bool Board::hasNeighborAbove(const int row, const int column) const
 {
     return 0 <= (row - 1) and CellState::Alive == board[row - 1][column];
 }
 
-bool hasNeighborBelow(const Board &board, const int row, const int column)
+bool Board::hasNeighborBelow(const int row, const int column) const
 {
     return board.size() > (row + 1) and
            CellState::Alive == board[row + 1][column];
 }
 
-Board calculateNextGeneration(const Board &board)
+int Board::countNeighbors(const int row, const int column) const
 {
-    Board output;
+    int numNeighbors{0};
+    if (hasNeighborOnTheLeft(row, column))
+    {
+        ++numNeighbors;
+    }
+    if (hasNeighborOnTheRight(row, column))
+    {
+        ++numNeighbors;
+    }
+    if (hasNeighborAbove(row, column))
+    {
+        ++numNeighbors;
+    }
+    if (hasNeighborBelow(row, column))
+    {
+        ++numNeighbors;
+    }
+    return numNeighbors;
+}
 
-    for (int row = 0; row < board.size(); ++row)
+World calculateNextGeneration(const World &world)
+{
+    World output{};
+    Board board{world};
+
+    for (int row = 0; row < board.board.size(); ++row)
     {
         std::vector<CellState> out;
-        for (int column = 0; column < board[row].size(); ++column)
+        for (int column = 0; column < board.board[row].size(); ++column)
         {
-            int numNeighbors{0};
-            if (hasNeighborOnTheLeft(board[row], column))
-            {
-                ++numNeighbors;
-            }
-            if (hasNeighborOnTheRight(board[row], column))
-            {
-                ++numNeighbors;
-            }
-            if (hasNeighborAbove(board, row, column))
-            {
-                ++numNeighbors;
-            }
-            if (hasNeighborBelow(board, row, column))
-            {
-                ++numNeighbors;
-            }
+            int numNeighbors = board.countNeighbors(row, column);
 
-            if (CellState::Alive == board[row][column] && numNeighbors == 2)
+            if (CellState::Alive == board.board[row][column] &&
+                numNeighbors == 2)
             {
                 out.push_back(CellState::Alive);
             }
