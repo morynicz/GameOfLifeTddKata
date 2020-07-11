@@ -14,7 +14,11 @@ Board calculateNextGeneration(const Board &);
 
 inline std::ostream &operator<<(std::ostream &str, const CellState in)
 {
-    str << (CellState::Dead == in) ? "Alive" : "Dead";
+    switch(in)
+    {
+        case CellState::Alive: str<< "Alive"; break;
+        case CellState::Dead: str<< "Dead"; break;
+    }
     return str;
 }
 
