@@ -29,3 +29,14 @@ TEST(Board3x3Tests, aliveCellWithTwoNeighborsInRowStaysAlive)
                  {CellState::Dead, CellState::Dead, CellState::Dead}};
     EXPECT_EQ(output, calculateNextGeneration(input));
 }
+
+TEST(Board3x3Tests, aliveCellWithTwoNeighborsInCollumnStaysAlive)
+{
+    Board input{{CellState::Dead, CellState::Alive, CellState::Dead},
+                {CellState::Dead, CellState::Alive, CellState::Dead},
+                {CellState::Dead, CellState::Alive, CellState::Dead}};
+    Board output{{CellState::Dead, CellState::Dead, CellState::Dead},
+                 {CellState::Dead, CellState::Alive, CellState::Dead},
+                 {CellState::Dead, CellState::Dead, CellState::Dead}};
+    EXPECT_EQ(output, calculateNextGeneration(input));
+}
