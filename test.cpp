@@ -1,16 +1,31 @@
-#include "gtest/gtest.h"
 #include "implementation.hpp"
+#include "gtest/gtest.h"
 
 TEST(Board1x1Tests, cellStaysDead)
 {
-    Board input{false};
-    Board output{false};
+    Board input{{CellState::Dead}};
+    Board output{{CellState::Dead}};
     EXPECT_EQ(output, calculateNextGeneration(input));
 }
 
 TEST(Board3x3Tests, aliveCellBecomesDead)
 {
-    Board input{false, false, false, false, true, false, false, false, false};
-    Board output{false,false,false, false, false, false, false, false, false};
+    Board input{{CellState::Dead, CellState::Dead, CellState::Dead},
+                {CellState::Dead, CellState::Alive, CellState::Dead},
+                {CellState::Dead, CellState::Dead, CellState::Dead}};
+    Board output{{CellState::Dead, CellState::Dead, CellState::Dead},
+                 {CellState::Dead, CellState::Dead, CellState::Dead},
+                 {CellState::Dead, CellState::Dead, CellState::Dead}};
+    EXPECT_EQ(output, calculateNextGeneration(input));
+}
+
+TEST(Board3x3Tests, aliveCellWithTwoNeighborsInRowStaysAlive)
+{
+    Board input{{CellState::Dead, CellState::Dead, CellState::Dead},
+                {CellState::Alive, CellState::Alive, CellState::Alive},
+                {CellState::Dead, CellState::Dead, CellState::Dead}};
+    Board output{{CellState::Dead, CellState::Dead, CellState::Dead},
+                 {CellState::Dead, CellState::Alive, CellState::Dead},
+                 {CellState::Dead, CellState::Dead, CellState::Dead}};
     EXPECT_EQ(output, calculateNextGeneration(input));
 }
