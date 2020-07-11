@@ -1,9 +1,9 @@
 #include "gtest/gtest.h"
 #include "implementation.hpp"
 
-TEST(test, tee)
+TEST(1x1BoardTests, cellStaysDead)
 {
-    std::list<bool> input{false};
-    std::list<bool> output{false};
-    EXPECT_EQ(output, fun(input));
+    Board input{false};
+    Board output{false};
+    EXPECT_EQ(output, calculateNextGeneration(input));
 }

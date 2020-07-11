@@ -1,6 +1,6 @@
 #include "implementation.hpp"
 
-std::list<bool> fun(std::list<bool> in)
+Board calculateNextGeneration(const Board& in)
 {
     return in;
 }
