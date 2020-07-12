@@ -1,4 +1,4 @@
-#include "implementation.hpp"
+#include "gameOfLife/implementation.hpp"
 #include "gtest/gtest.h"
 
 TEST(World1x1Tests, cellStaysDead)

@@ -11,5 +11,8 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
-add_executable(test test.cpp implementation.cpp)
-target_link_libraries(test gtest_main)
+add_library(GameOfLife src/implementation.cpp src/Board.cpp)
+target_include_directories(GameOfLife PUBLIC include)
+
+add_executable(test src/test.cpp)
+target_link_libraries(test gtest_main GameOfLife)
