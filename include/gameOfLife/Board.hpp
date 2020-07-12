@@ -7,7 +7,7 @@ class Board
 {
   public:
     Board(const World &);
-    int countNeighbors(const Coordinates &coords) const;
+    int countLivingNeighbors(const Coordinates &coords) const;
     CellState getCellState(const Coordinates &coords) const;
     Coordinates getLimits() const;
     bool operator==(const Board &rhs) const;

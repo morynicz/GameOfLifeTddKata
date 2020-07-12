@@ -25,26 +25,8 @@ std::list<Coordinates> Board::getNeighborCoordinates() const
             Coordinates{0, 1},   Coordinates{1, 1}};
 }
 
-int Board::countNeighbors(const Coordinates &coords) const
+int Board::countLivingNeighbors(const Coordinates &coords) const
 {
-    std::list<std::function<bool(const Coordinates &)>> possibleNeighbors{
-        std::bind(&Board::hasNeighbor, this, std::placeholders::_1,
-                  Coordinates{-1, 0}),
-        std::bind(&Board::hasNeighbor, this, std::placeholders::_1,
-                  Coordinates{1, 0}),
-        std::bind(&Board::hasNeighbor, this, std::placeholders::_1,
-                  Coordinates{0, -1}),
-        std::bind(&Board::hasNeighbor, this, std::placeholders::_1,
-                  Coordinates{0, 1}),
-        std::bind(&Board::hasNeighbor, this, std::placeholders::_1,
-                  Coordinates{-1, -1}),
-        std::bind(&Board::hasNeighbor, this, std::placeholders::_1,
-                  Coordinates{-1, 1}),
-        std::bind(&Board::hasNeighbor, this, std::placeholders::_1,
-                  Coordinates{1, -1}),
-        std::bind(&Board::hasNeighbor, this, std::placeholders::_1,
-                  Coordinates{1, 1})};
-
     const auto neighborCoordinates = getNeighborCoordinates();
 
     int numNeighbors =
