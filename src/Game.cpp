@@ -12,9 +12,10 @@ World calculateNextGeneration(const World &world)
         std::vector<CellState> out;
         for (int column = 0; column < boardLimits.x; ++column)
         {
-            int numNeighbors = board.countNeighbors(row, column);
+            Coordinates coordinates{column, row};
+            int numNeighbors = board.countNeighbors(coordinates);
 
-            if (CellState::Alive == board.getCellState(row, column) &&
+            if (CellState::Alive == board.getCellState(coordinates) &&
                 numNeighbors == 2)
             {
                 out.push_back(CellState::Alive);

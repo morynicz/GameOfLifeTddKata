@@ -6,16 +6,16 @@ class Board
 {
   public:
     Board(const World &);
-    int countNeighbors(const int row, const int column) const;
-    CellState getCellState(const int row, const int column) const;
+    int countNeighbors(const Coordinates &coords) const;
+    CellState getCellState(const Coordinates &coords) const;
     Coordinates getLimits() const;
     bool operator==(const Board &rhs) const;
 
   private:
-    bool hasNeighborOnTheLeft(const int row, const int column) const;
-    bool hasNeighborOnTheRight(const int row, const int column) const;
-    bool hasNeighborAbove(const int row, const int column) const;
-    bool hasNeighborBelow(const int row, const int column) const;
+    bool hasNeighborOnTheLeft(const Coordinates &coords) const;
+    bool hasNeighborOnTheRight(const Coordinates &coords) const;
+    bool hasNeighborAbove(const Coordinates &coords) const;
+    bool hasNeighborBelow(const Coordinates &coords) const;
 
     World board;
 };

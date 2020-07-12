@@ -2,53 +2,55 @@
 
 Board::Board(const std::vector<std::vector<CellState>> &board) : board(board) {}
 
-bool Board::hasNeighborOnTheLeft(const int row, const int column) const
+bool Board::hasNeighborOnTheLeft(const Coordinates &coords) const
 {
-    return (column - 1) >= 0 && CellState::Alive == board[row][column - 1];
+    return (coords.x - 1) >= 0 &&
+           CellState::Alive == board[coords.y][coords.x - 1];
 }
 
-bool Board::hasNeighborOnTheRight(const int row, const int column) const
+bool Board::hasNeighborOnTheRight(const Coordinates &coords) const
 {
-    return (column + 1) < board[row].size() &&
-           CellState::Alive == board[row][column + 1];
+    return (coords.x + 1) < board[coords.y].size() &&
+           CellState::Alive == board[coords.y][coords.x + 1];
 }
 
-bool Board::hasNeighborAbove(const int row, const int column) const
+bool Board::hasNeighborAbove(const Coordinates &coords) const
 {
-    return 0 <= (row - 1) and CellState::Alive == board[row - 1][column];
+    return 0 <= (coords.y - 1) and
+           CellState::Alive == board[coords.y - 1][coords.x];
 }
 
-bool Board::hasNeighborBelow(const int row, const int column) const
+bool Board::hasNeighborBelow(const Coordinates &coords) const
 {
-    return board.size() > (row + 1) and
-           CellState::Alive == board[row + 1][column];
+    return board.size() > (coords.y + 1) and
+           CellState::Alive == board[coords.y + 1][coords.x];
 }
 
-int Board::countNeighbors(const int row, const int column) const
+int Board::countNeighbors(const Coordinates &coords) const
 {
     int numNeighbors{0};
-    if (hasNeighborOnTheLeft(row, column))
+    if (hasNeighborOnTheLeft(coords))
     {
         ++numNeighbors;
     }
-    if (hasNeighborOnTheRight(row, column))
+    if (hasNeighborOnTheRight(coords))
     {
         ++numNeighbors;
     }
-    if (hasNeighborAbove(row, column))
+    if (hasNeighborAbove(coords))
     {
         ++numNeighbors;
     }
-    if (hasNeighborBelow(row, column))
+    if (hasNeighborBelow(coords))
     {
         ++numNeighbors;
     }
     return numNeighbors;
 }
 
-CellState Board::getCellState(const int row, const int column) const
+CellState Board::getCellState(const Coordinates &coords) const
 {
-    return board[row][column];
+    return board[coords.y][coords.x];
 }
 
 Coordinates Board::getLimits() const
