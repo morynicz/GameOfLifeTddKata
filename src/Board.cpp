@@ -5,72 +5,57 @@
 
 Board::Board(const std::vector<std::vector<CellState>> &board) : board(board) {}
 
-bool Board::isOnLeftEdge(const Coordinates &coords) const
+bool Board::hasNeighbor(const Coordinates &coords, const Coordinates &mod) const
 {
-    return 0 < (coords.x - 1);
-}
-
-bool Board::isOnRightEdge(const Coordinates &coords) const
-{
-    return coords.x + 1 >= board[coords.y].size();
-}
-
-bool Board::isOnUpperEdge(const Coordinates &coords) const
-{
-    return 0 > (coords.y - 1);
-}
-
-bool Board::isOnLowerEdge(const Coordinates &coords) const
-{
-    return board.size() <= (coords.y + 1);
+    try
+    {
+        return CellState::Alive ==
+               board.at(coords.y + mod.y).at(coords.x + mod.x);
+    }
+    catch (std::out_of_range)
+    {
+        return false;
+    }
 }
 
 bool Board::hasNeighborOnTheLeft(const Coordinates &coords) const
 {
-    return not isOnLeftEdge(coords) and
-           CellState::Alive == board[coords.y][coords.x - 1];
+    return hasNeighbor(coords, Coordinates{-1, 0});
 }
 
 bool Board::hasNeighborOnTheRight(const Coordinates &coords) const
 {
-    return not isOnRightEdge(coords) and
-           CellState::Alive == board[coords.y][coords.x + 1];
+    return hasNeighbor(coords, Coordinates{1, 0});
 }
 
 bool Board::hasNeighborAbove(const Coordinates &coords) const
 {
-    return not isOnUpperEdge(coords) and
-           CellState::Alive == board[coords.y - 1][coords.x];
+    return hasNeighbor(coords, Coordinates{0, -1});
 }
 
 bool Board::hasNeighborBelow(const Coordinates &coords) const
 {
-    return not isOnLowerEdge(coords) and
-           CellState::Alive == board[coords.y + 1][coords.x];
+    return hasNeighbor(coords, Coordinates{0, 1});
 }
 
 bool Board::hasNeighborOnUpperLeft(const Coordinates &coords) const
 {
-    return not(isOnUpperEdge(coords) or isOnLeftEdge(coords)) and
-           CellState::Alive == board[coords.y - 1][coords.x - 1];
+    return hasNeighbor(coords, Coordinates{-1, -1});
 }
 
 bool Board::hasNeighborOnUpperRight(const Coordinates &coords) const
 {
-    return not(isOnUpperEdge(coords) or isOnRightEdge(coords)) and
-           CellState::Alive == board[coords.y - 1][coords.x + 1];
+    return hasNeighbor(coords, Coordinates{1, -1});
 }
 
 bool Board::hasNeighborOnLowerLeft(const Coordinates &coords) const
 {
-    return not(isOnLowerEdge(coords) or isOnLeftEdge(coords)) and
-           CellState::Alive == board[coords.y + 1][coords.x - 1];
+    return hasNeighbor(coords, Coordinates{-1, 1});
 }
 
 bool Board::hasNeighborOnLowerRight(const Coordinates &coords) const
 {
-    return not(isOnLowerEdge(coords) or isOnRightEdge(coords)) and
-           CellState::Alive == board[coords.y + 1][coords.x + 1];
+    return hasNeighbor(coords, Coordinates{1, 1});
 }
 
 int Board::countNeighbors(const Coordinates &coords) const

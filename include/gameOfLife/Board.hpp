@@ -12,6 +12,7 @@ class Board
     bool operator==(const Board &rhs) const;
 
   private:
+    bool hasNeighbor(const Coordinates &coords, const Coordinates &mod) const;
     bool hasNeighborOnTheLeft(const Coordinates &coords) const;
     bool hasNeighborOnTheRight(const Coordinates &coords) const;
     bool hasNeighborAbove(const Coordinates &coords) const;
@@ -20,11 +21,6 @@ class Board
     bool hasNeighborOnUpperRight(const Coordinates &coords) const;
     bool hasNeighborOnLowerLeft(const Coordinates &coords) const;
     bool hasNeighborOnLowerRight(const Coordinates &coords) const;
-
-    bool isOnLeftEdge(const Coordinates &coords) const;
-    bool isOnRightEdge(const Coordinates &coords) const;
-    bool isOnUpperEdge(const Coordinates &coords) const;
-    bool isOnLowerEdge(const Coordinates &coords) const;
 
     World board;
 };
