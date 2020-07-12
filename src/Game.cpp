@@ -1,5 +1,6 @@
-#include "gameOfLife/implementation.hpp"
+#include "gameOfLife/Game.hpp"
 #include "gameOfLife/Board.hpp"
+
 World calculateNextGeneration(const World &world)
 {
     World output{};

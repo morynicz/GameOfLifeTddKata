@@ -1,9 +1,6 @@
 #pragma once
-#include "gameOfLife/CellState.hpp"
+#include "gameOfLife/World.hpp"
 #include <iostream>
-#include <vector>
-
-using World = std::vector<std::vector<CellState>>;
 
 World calculateNextGeneration(const World &);
 

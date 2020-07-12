@@ -1,7 +1,6 @@
 #include "gameOfLife/Board.hpp"
 
 Board::Board(const std::vector<std::vector<CellState>> &board) : board(board) {}
-Board::Board() : Board(World{}) {}
 
 bool Board::hasNeighborOnTheLeft(const int row, const int column) const
 {
