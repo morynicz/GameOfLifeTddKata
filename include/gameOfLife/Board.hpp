@@ -1,12 +1,11 @@
 #pragma once
 #include "gameOfLife/Coordinates.hpp"
-#include "gameOfLife/implementation.hpp"
+#include "gameOfLife/Game.hpp"
 
 class Board
 {
   public:
     Board(const World &);
-    Board();
     int countNeighbors(const int row, const int column) const;
     CellState getCellState(const int row, const int column) const;
     Coordinates getLimits() const;
