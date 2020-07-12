@@ -16,3 +16,6 @@ target_include_directories(GameOfLife PUBLIC include)
 
 add_executable(test src/GameTests.cpp src/BoardTests.cpp)
 target_link_libraries(test gtest_main GameOfLife)
+
+add_executable(Game src/main.cpp)
+target_link_libraries(Game GameOfLife)

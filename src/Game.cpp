@@ -13,10 +13,15 @@ World calculateNextGeneration(const World &world)
         for (int column = 0; column < boardLimits.x; ++column)
         {
             Coordinates coordinates{column, row};
-            int numNeighbors = board.countLivingNeighbors(coordinates);
+            int numberOfLivingNeighbors =
+                board.countLivingNeighbors(coordinates);
 
             if (CellState::Alive == board.getCellState(coordinates) and
-                (numNeighbors == 2 or numNeighbors == 3))
+                numberOfLivingNeighbors == 2)
+            {
+                out.push_back(CellState::Alive);
+            }
+            else if (numberOfLivingNeighbors == 3)
             {
                 out.push_back(CellState::Alive);
             }
