@@ -40,3 +40,14 @@ TEST(World3x3Tests, aliveCellWithTwoNeighborsInCollumnStaysAlive)
                  {CellState::Dead, CellState::Dead, CellState::Dead}};
     EXPECT_EQ(output, calculateNextGeneration(input));
 }
+
+TEST(World3x3Tests, aliveCellWithTwoThreeNeighborsStaysAlive)
+{
+    World input{{CellState::Dead, CellState::Alive, CellState::Dead},
+                {CellState::Dead, CellState::Alive, CellState::Dead},
+                {CellState::Alive, CellState::Dead, CellState::Alive}};
+    World output{{CellState::Dead, CellState::Dead, CellState::Dead},
+                 {CellState::Dead, CellState::Alive, CellState::Dead},
+                 {CellState::Dead, CellState::Dead, CellState::Dead}};
+    EXPECT_EQ(output, calculateNextGeneration(input));
+}

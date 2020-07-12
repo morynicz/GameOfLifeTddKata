@@ -15,8 +15,8 @@ World calculateNextGeneration(const World &world)
             Coordinates coordinates{column, row};
             int numNeighbors = board.countLivingNeighbors(coordinates);
 
-            if (CellState::Alive == board.getCellState(coordinates) &&
-                numNeighbors == 2)
+            if (CellState::Alive == board.getCellState(coordinates) and
+                (numNeighbors == 2 or numNeighbors == 3))
             {
                 out.push_back(CellState::Alive);
             }
