@@ -16,6 +16,12 @@ class Board
     bool hasNeighborOnTheRight(const Coordinates &coords) const;
     bool hasNeighborAbove(const Coordinates &coords) const;
     bool hasNeighborBelow(const Coordinates &coords) const;
+    bool hasNeighborOnUpperLeft(const Coordinates &coords) const;
+
+    bool isOnLeftEdge(const Coordinates &coords) const;
+    bool isOnRightEdge(const Coordinates &coords) const;
+    bool isOnUpperEdge(const Coordinates &coords) const;
+    bool isOnLowerEdge(const Coordinates &coords) const;
 
     World board;
 };
