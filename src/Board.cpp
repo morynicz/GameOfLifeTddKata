@@ -61,6 +61,18 @@ bool Board::hasNeighborOnUpperRight(const Coordinates &coords) const
            CellState::Alive == board[coords.y - 1][coords.x + 1];
 }
 
+bool Board::hasNeighborOnLowerLeft(const Coordinates &coords) const
+{
+    return not(isOnLowerEdge(coords) or isOnLeftEdge(coords)) and
+           CellState::Alive == board[coords.y + 1][coords.x - 1];
+}
+
+bool Board::hasNeighborOnLowerRight(const Coordinates &coords) const
+{
+    return not(isOnLowerEdge(coords) or isOnRightEdge(coords)) and
+           CellState::Alive == board[coords.y + 1][coords.x + 1];
+}
+
 int Board::countNeighbors(const Coordinates &coords) const
 {
     std::list<std::function<bool(const Coordinates &)>> possibleNeighbors{
@@ -69,8 +81,11 @@ int Board::countNeighbors(const Coordinates &coords) const
         std::bind(&Board::hasNeighborAbove, this, std::placeholders::_1),
         std::bind(&Board::hasNeighborBelow, this, std::placeholders::_1),
         std::bind(&Board::hasNeighborOnUpperLeft, this, std::placeholders::_1),
-        std::bind(&Board::hasNeighborOnUpperRight, this,
+        std::bind(&Board::hasNeighborOnUpperRight, this, std::placeholders::_1),
+        std::bind(&Board::hasNeighborOnLowerLeft, this, std::placeholders::_1),
+        std::bind(&Board::hasNeighborOnLowerRight, this,
                   std::placeholders::_1)};
+
     int numNeighbors =
         std::count_if(possibleNeighbors.begin(), possibleNeighbors.end(),
                       [coords](const auto &test) { return test(coords); });

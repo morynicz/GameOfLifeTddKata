@@ -39,6 +39,12 @@ INSTANTIATE_TEST_SUITE_P(
                           {CellState::Dead, CellState::Dead, CellState::Dead}},
                     World{{CellState::Dead, CellState::Dead, CellState::Alive},
                           {CellState::Dead, CellState::Alive, CellState::Dead},
-                          {CellState::Dead, CellState::Dead, CellState::Dead}}
+                          {CellState::Dead, CellState::Dead, CellState::Dead}},
+                    World{{CellState::Dead, CellState::Dead, CellState::Dead},
+                          {CellState::Dead, CellState::Alive, CellState::Dead},
+                          {CellState::Alive, CellState::Dead, CellState::Dead}},
+                    World{{CellState::Dead, CellState::Dead, CellState::Dead},
+                          {CellState::Dead, CellState::Alive, CellState::Dead},
+                          {CellState::Dead, CellState::Dead, CellState::Alive}}
 
                     ));
