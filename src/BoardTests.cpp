@@ -14,7 +14,7 @@ struct Board3x3OneNeighborTests : public testing::TestWithParam<World>
 {
 };
 
-TEST_P(Board3x3OneNeighborTests, cellInCenterWithNoNeighborsHas0Neigbors)
+TEST_P(Board3x3OneNeighborTests, cellInCenterWithOneNeighborHas1Neigbors)
 {
     Board board{GetParam()};
     EXPECT_EQ(1, board.countNeighbors(Coordinates{1, 1}));

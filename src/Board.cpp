@@ -1,4 +1,7 @@
 #include "gameOfLife/Board.hpp"
+#include <algorithm>
+#include <functional>
+#include <list>
 
 Board::Board(const std::vector<std::vector<CellState>> &board) : board(board) {}
 
@@ -28,23 +31,14 @@ bool Board::hasNeighborBelow(const Coordinates &coords) const
 
 int Board::countNeighbors(const Coordinates &coords) const
 {
-    int numNeighbors{0};
-    if (hasNeighborOnTheLeft(coords))
-    {
-        ++numNeighbors;
-    }
-    if (hasNeighborOnTheRight(coords))
-    {
-        ++numNeighbors;
-    }
-    if (hasNeighborAbove(coords))
-    {
-        ++numNeighbors;
-    }
-    if (hasNeighborBelow(coords))
-    {
-        ++numNeighbors;
-    }
+    std::list<std::function<bool(const Coordinates &)>> possibleNeighbors{
+        std::bind(&Board::hasNeighborOnTheLeft, this, std::placeholders::_1),
+        std::bind(&Board::hasNeighborOnTheRight, this, std::placeholders::_1),
+        std::bind(&Board::hasNeighborAbove, this, std::placeholders::_1),
+        std::bind(&Board::hasNeighborBelow, this, std::placeholders::_1)};
+    int numNeighbors =
+        std::count_if(possibleNeighbors.begin(), possibleNeighbors.end(),
+                      [coords](const auto &test) { return test(coords); });
     return numNeighbors;
 }
 
